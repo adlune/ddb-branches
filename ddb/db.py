@@ -1,44 +1,39 @@
-"""Utilidades de conexión a MySQL/MariaDB."""
+"""Connections to MariaDB: one to the catalog, and one to each node when it's needed."""
 import re
-from dataclasses import dataclass
 
 import pymysql
 import pymysql.cursors
 
-IDENT_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
+from . import config
+
+SETTINGS = config.load()
+
+# table, column and database names typed by the user must match this before going into SQL
+IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
 
 
-@dataclass
-class ConnInfo:
-    host: str
-    port: int
-    user: str
-    password: str
-    database: str | None = None
-
-
-def connect(info: ConnInfo, database: str | None = None, autocommit: bool = True):
+def connect(host, port, database=None, autocommit=True):
     return pymysql.connect(
-        host=info.host,
-        port=int(info.port),
-        user=info.user,
-        password=info.password or "",
-        database=database if database is not None else info.database,
+        host=host,
+        port=int(port),
+        user=SETTINGS["user"],
+        password=SETTINGS["password"],
+        database=database,
         charset="utf8mb4",
         autocommit=autocommit,
         connect_timeout=4,
-        read_timeout=30,
-        write_timeout=30,
-        cursorclass=pymysql.cursors.DictCursor,
+        cursorclass=pymysql.cursors.DictCursor,  # rows come back as {column: value}
     )
 
 
-def is_identifier(name: str) -> bool:
-    return bool(IDENT_RE.match(name or ""))
+def connect_catalog():
+    return connect(SETTINGS["host"], SETTINGS["port"], SETTINGS["catalog"])
 
 
-def q(name: str) -> str:
-    """Entrecomilla un identificador (tabla/columna/BD) tras validarlo."""
-    if not is_identifier(name):
-        raise ValueError(f"Identificador inválido: {name!r}")
-    return f"`{name}`"
+def connect_node(node, autocommit=True):
+    """node is a row of the Nodes table: {"Id", "Name", "Host", "Port", "DbName"}."""
+    return connect(node["Host"], node["Port"], node["DbName"], autocommit)
+
+
+def is_identifier(name):
+    return bool(IDENTIFIER.match(name))

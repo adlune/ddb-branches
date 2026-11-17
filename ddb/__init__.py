@@ -1,1 +1,1 @@
-"""Sistema de base de datos distribuida por sucursales (DP + TP)."""
+"""Distributed database system for branches: Data Processor (DP) and Transaction Processor (TP)."""

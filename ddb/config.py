@@ -1,4 +1,8 @@
-"""Lectura y escritura de config.ini (conexión al catálogo global)."""
+"""Reads the connection settings from config.ini.
+
+Every node uses the same MariaDB user, so the password lives here and not in the catalog.
+If config.ini doesn't exist, the defaults of a fresh XAMPP install are used.
+"""
 import configparser
 import os
 
@@ -10,22 +14,14 @@ DEFAULTS = {
     "port": "3306",
     "user": "root",
     "password": "",
-    "database": "ddb_catalog",
+    "catalog": "ddb_catalog",
 }
 
 
-def load() -> dict:
-    cp = configparser.ConfigParser()
-    cp.read(CONFIG_FILE, encoding="utf-8")
-    section = cp["catalog"] if cp.has_section("catalog") else {}
-    return {k: section.get(k, v) for k, v in DEFAULTS.items()}
-
-
-def save(values: dict, include_password: bool = False) -> None:
-    cp = configparser.ConfigParser()
-    data = {k: str(values.get(k, DEFAULTS[k])) for k in DEFAULTS}
-    if not include_password:
-        data["password"] = ""
-    cp["catalog"] = data
-    with open(CONFIG_FILE, "w", encoding="utf-8") as fh:
-        cp.write(fh)
+def load():
+    parser = configparser.ConfigParser()
+    parser.read(CONFIG_FILE, encoding="utf-8")
+    section = parser["mariadb"] if parser.has_section("mariadb") else {}
+    settings = {key: section.get(key, default) for key, default in DEFAULTS.items()}
+    settings["port"] = int(settings["port"])
+    return settings

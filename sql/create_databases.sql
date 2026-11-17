@@ -26,6 +26,22 @@ INSERT INTO Nodes (Id, Name, Host, Port, DbName) VALUES
     (1, 'Morelia', 'localhost', 3306, 'ddb_morelia'),
     (2, 'Pátzcuaro', 'localhost', 3306, 'ddb_patzcuaro');
 
+-- distributed tables created from the program (horizontal fragmentation by branch).
+-- every node has one fragment of each table, so a new node needs the column list to create its own.
+-- DistributedColumns.Id keeps the columns in the order they were created.
+
+CREATE TABLE DistributedTables (
+    Name VARCHAR(64) PRIMARY KEY
+);
+
+CREATE TABLE DistributedColumns (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    TableName VARCHAR(64) NOT NULL,
+    Name VARCHAR(64) NOT NULL,
+    Type VARCHAR(30) NOT NULL,
+    FOREIGN KEY (TableName) REFERENCES DistributedTables(Name)
+);
+
 
 -- morelia node
 
