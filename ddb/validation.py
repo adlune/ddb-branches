@@ -26,7 +26,9 @@ def client(data):
         "RFC": _field(data, "RFC", "RFC", 13).upper(),
     }
     if not RFC_PATTERN.match(result["RFC"]):
-        raise ValidationError("Invalid RFC. Expected 3-4 letters, 6 digits (YYMMDD) and 3 characters.")
+        raise ValidationError(
+            "Invalid RFC. Expected 3-4 letters, 6 digits (YYMMDD) and 3 characters, e.g. LOGJ850312AB1."
+        )
     return result
 
 
@@ -39,5 +41,5 @@ def address(data):
         "ZIPCode": _field(data, "ZIPCode", "ZIP code", 5),
     }
     if not ZIP_PATTERN.match(result["ZIPCode"]):
-        raise ValidationError("The ZIP code must have exactly 5 digits.")
+        raise ValidationError("The ZIP code must have exactly 5 digits, e.g. 58000.")
     return result

@@ -6,7 +6,7 @@ program. The databases are created by [sql/create_databases.sql](sql/create_data
 
 ## Setup
 
-- XAMPP (tested with MariaDB 10.4, user `root` without password).
+- XAMPP (tested with MariaDB 10.4, user **root** without password).
 - Python 3.10 or newer.
 
 1. Create the databases:
@@ -29,6 +29,9 @@ program. The databases are created by [sql/create_databases.sql](sql/create_data
    ```bash
    python main.py
    ```
+
+   To leave an option and go back to the main menu, type **cancel** at any prompt or press **Ctrl+C**.
+   Nothing is saved when an option is cancelled.
 
 ## Structure
 

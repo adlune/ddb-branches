@@ -8,6 +8,10 @@ from . import config
 
 SETTINGS = config.load()
 
+# XAMPP's MariaDB isn't strict by default: it saves 'abc' in a DECIMAL column as 0.00 with only a
+# warning. In strict mode a wrong value is an error, so the insert fails and the user is told.
+STRICT_MODE = "SET SESSION sql_mode = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION'"
+
 # table, column and database names typed by the user must match this before going into SQL
 IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
 
@@ -22,6 +26,7 @@ def connect(host, port, database=None, autocommit=True):
         charset="utf8mb4",
         autocommit=autocommit,
         connect_timeout=4,
+        init_command=STRICT_MODE,
         cursorclass=pymysql.cursors.DictCursor,  # rows come back as {column: value}
     )
 
