@@ -93,30 +93,62 @@ CREATE TABLE Addresses (
 ) AUTO_INCREMENT = 2000001;
 
 
--- morelia sample data
+-- morelia sample data (fictitious). 10 clients, each with one address.
 
 USE ddb_morelia;
 
 INSERT INTO Clients (Name, PaternalSurname, MaternalSurname, RFC) VALUES
     ('Juan', 'López', 'García', 'LOGJ850312AB1'),
-    ('María', 'Hernández', 'Ruiz', 'HERM900725QW3');
+    ('María', 'Hernández', 'Ruiz', 'HERM900725QW3'),
+    ('Luis', 'Martínez', 'Pérez', 'MAPL880214HT5'),
+    ('Sofía', 'Gutiérrez', 'Ramos', 'GURS920530KM8'),
+    ('Jorge', 'Castillo', 'Vega', 'CAVJ810911LP2'),
+    ('Daniela', 'Ortiz', 'Navarro', 'ORND970103BX4'),
+    ('Ricardo', 'Mendoza', 'Ávila', 'MEAR750620CJ7'),
+    ('Fernanda', 'Rojas', 'Cruz', 'ROCF990817DN1'),
+    ('Alejandro', 'Flores', 'Silva', 'FOSA860429EV6'),
+    ('Valeria', 'Torres', 'Medina', 'TOMV010305FR9');
 
 INSERT INTO Addresses (Street, Number, Neighborhood, State, ZIPCode, ClientId) VALUES
     ('Av. Madero Poniente', '450', 'Centro', 'Michoacán', '58000', 1000001),
-    ('Calle Aquiles Serdán', '12', 'Chapultepec Sur', 'Michoacán', '58260', 1000002);
+    ('Calle Aquiles Serdán', '12', 'Chapultepec Sur', 'Michoacán', '58260', 1000002),
+    ('Av. Camelinas', '3233', 'Bosque Camelinas', 'Michoacán', '58290', 1000003),
+    ('Calle Guillermo Prieto', '87', 'Centro', 'Michoacán', '58000', 1000004),
+    ('Av. Acueducto', '1050', 'Vasco de Quiroga', 'Michoacán', '58230', 1000005),
+    ('Calle Abasolo', '215-B', 'Centro', 'Michoacán', '58000', 1000006),
+    ('Av. Ventura Puente', '640', 'Ventura Puente', 'Michoacán', '58020', 1000007),
+    ('Calle Nicolás Bravo', '19', 'Félix Ireta', 'Michoacán', '58070', 1000008),
+    ('Av. Siervo de la Nación', '2101', 'Las Américas', 'Michoacán', '58270', 1000009),
+    ('Calle Río Lerma', 'S/N', 'Nueva Valladolid', 'Michoacán', '58190', 1000010);
 
 
--- pátzcuaro sample data
+-- pátzcuaro sample data (fictitious). 10 clients, each with one address.
 
 USE ddb_patzcuaro;
 
 INSERT INTO Clients (Name, PaternalSurname, MaternalSurname, RFC) VALUES
     ('Carlos', 'Ramírez', 'Torres', 'RATC780104LK9'),
-    ('Ana', 'Sánchez', 'Méndez', 'SAMA950918PZ2');
+    ('Ana', 'Sánchez', 'Méndez', 'SAMA950918PZ2'),
+    ('Miguel', 'Díaz', 'Herrera', 'DIHM830722GW3'),
+    ('Laura', 'Morales', 'Estrada', 'MOEL910115HQ6'),
+    ('Fernando', 'Reyes', 'Campos', 'RECF870403JT8'),
+    ('Gabriela', 'Vargas', 'Luna', 'VALG940826KS1'),
+    ('Roberto', 'Aguilar', 'Soto', 'AUSR800212LM4'),
+    ('Patricia', 'Jiménez', 'Núñez', 'JINP760930MD7'),
+    ('Eduardo', 'Salazar', 'Pineda', 'SAPE020611NB5'),
+    ('Isabel', 'Cortés', 'Ochoa', 'COOI980117PX2');
 
 INSERT INTO Addresses (Street, Number, Neighborhood, State, ZIPCode, ClientId) VALUES
     ('Calle Ponce de León', '8', 'Centro', 'Michoacán', '61600', 2000001),
-    ('Av. Lázaro Cárdenas', '215', 'Ibarra', 'Michoacán', '61609', 2000002);
+    ('Av. Lázaro Cárdenas', '215', 'Ibarra', 'Michoacán', '61609', 2000002),
+    ('Calle Benigno Serrato', '34', 'Centro', 'Michoacán', '61600', 2000003),
+    ('Calle Romero', '12-A', 'Centro', 'Michoacán', '61600', 2000004),
+    ('Av. de las Américas', '410', 'Revolución', 'Michoacán', '61606', 2000005),
+    ('Calle Terán', '5', 'Centro', 'Michoacán', '61600', 2000006),
+    ('Calle Navarrete', '71', 'Ibarra', 'Michoacán', '61609', 2000007),
+    ('Calle Arciga', '23', 'Centro', 'Michoacán', '61600', 2000008),
+    ('Av. Tangara', 'S/N', 'Tangara', 'Michoacán', '61616', 2000009),
+    ('Calle Ahumada', '102', 'San Francisco', 'Michoacán', '61604', 2000010);
 
 
 -- test queries
